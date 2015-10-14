@@ -56,7 +56,8 @@
     function triggerShortcut(def, event) {
       var i, action, handler, infos;
 
-      if (!(infos = router.currentHandlerInfos)) return;
+      // router.router should exist at this point
+      if (!(infos = router.router.currentHandlerInfos)) return;
 
       for (i = infos.length - 1; i >= 0; i--) {
         handler = infos[i].handler;
@@ -151,7 +152,8 @@
     filters: [targetIsNotInput],
 
     init: function() {
-      var router = this.container.lookup('router:main').router;
+      // router.router does not exist yet when this is run
+      var router = this.container.lookup('router:main');
       var dispatch = makeDispatch(router, this.get('filters'));
 
       $doc.on('keydown.ember-shortcuts', dispatch);
