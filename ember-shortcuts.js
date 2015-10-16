@@ -50,8 +50,6 @@
     if (event.metaKey)  PRESSED_MODS[91] = true;
   }
 
-  var forEach = Ember.EnumerableUtils.forEach;
-
   function makeDispatch(router, filters) {
     function triggerShortcut(def, event) {
       var i, action, handler, infos;
@@ -92,7 +90,7 @@
       if (!filter(event)) return;
       if (!(kc in SHORTCUTS)) return;
 
-      forEach(SHORTCUTS[kc], function(def) {
+      SHORTCUTS[kc].forEach(function(def) {
         if (!modsMatch(def)) return;
         Ember.run(function() { triggerShortcut(def, event); });
       });
@@ -121,7 +119,7 @@
     var kc = code(parts.pop());
     var m, mods = {};
 
-    forEach(parts, function(part) {
+    parts.forEach(function(part) {
       if ((m = MODIFIERS[part])) mods[m] = true;
     });
 
@@ -129,7 +127,7 @@
   }
 
   function register(shortcuts) {
-    forEach(shortcuts, function(spec) {
+    shortcuts.forEach(function(spec) {
       var def = parse(spec);
       if (!(def.kc in SHORTCUTS)) SHORTCUTS[def.kc] = [];
       SHORTCUTS[def.kc].push(def);
