@@ -185,7 +185,7 @@
   Ember.onLoad('Ember.Application', function(Application) {
     Application.initializer({
       name: 'Ember Shortcuts',
-      initialize: function(container, application) {
+      initialize: function(application) {
         application.register('shortcuts:main', Ember.Shortcuts);
         application.inject('route', 'shortcuts', 'shortcuts:main');
         application.inject('controller', 'shortcuts', 'shortcuts:main');
